@@ -7,6 +7,7 @@ from io import StringIO
 import csv
 #from tabulate import tabulate
 from datetime import date
+import os
 # 確保 reports 資料夾存在
 os.makedirs("reports", exist_ok=True)
 #----------------------------------------------------------------------------------------------------
