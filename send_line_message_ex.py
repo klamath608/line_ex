@@ -19,7 +19,7 @@ user_ids = [
 # Excel 檔案的 GitHub 下載連結
 repo_owner = "klamath608"
 repo_name = "line_ex"
-file_path = "reports/除權息資料排序結果.xlsx"
+file_path = "reports/dividend_report.xlsx"
 file_url = f"https://github.com/{repo_owner}/{repo_name}/raw/main/{file_path}"
 
 # 訊息內容
