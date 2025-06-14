@@ -18,6 +18,13 @@ jobs:
         with:
           python-version: '3.11'
 
+      - name: Remove old Chinese filename
+        run: |
+         if [ -f "reports/除權息資料排序結果.xlsx" ]; then
+         rm "reports/除權息資料排序結果.xlsx"
+         echo "已刪除舊中文檔案"
+         fi
+
       - name: Install dependencies
         run: pip install requests pandas openpyxl line-bot-sdk
 
