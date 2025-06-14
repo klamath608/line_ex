@@ -26,7 +26,6 @@ def stock_info():
     #print(df.head(10))
     return df
 #-----------------------------------------------------------------------------------------------------
-
 url1 = "https://www.twse.com.tw/exchangeReport/TWT48U?response=csv"
 headers = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36"
@@ -82,7 +81,7 @@ merged=df_all[["股票代號", "名稱", "收盤價", "本益比", "殖利率(%)
 
 # 排序
 df_sorted = merged.sort_values("西元日期")
-print("列數:", len(df_sorted))
+#print("列數:", len(df_sorted))
 #print(df_sorted.head(50))
 
 # 用 tabulate 格式化輸出
@@ -91,7 +90,7 @@ print("列數:", len(df_sorted))
 
 
 #假設 df_sorted 是你排序後的 DataFrame
-excel_path = "除權息資料排序結果.xlsx"
+excel_path = "dividend_report.xlsx"
 
 # 寫入 Excel，不含索引欄
 df_sorted.to_excel(excel_path, index=False)
