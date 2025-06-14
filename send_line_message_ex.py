@@ -1,7 +1,8 @@
 import os
-from linebot.v3.messaging import MessagingApi, Configuration
+from linebot.v3.messaging import MessagingApi
 from linebot.v3.messaging.models import PushMessageRequest, TextMessage
-
+from linebot.v3.messaging.api_client import ApiClient
+from linebot.v3.messaging.configuration import Configuration
 # 讀取 LINE Token 並建立 API 實體
 line_token = os.environ['LINE_CHANNEL_ACCESS_TOKEN']
 configuration = Configuration(access_token=line_token)
