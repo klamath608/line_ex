@@ -7,7 +7,8 @@ from io import StringIO
 import csv
 #from tabulate import tabulate
 from datetime import date
-
+# 確保 reports 資料夾存在
+os.makedirs("reports", exist_ok=True)
 #----------------------------------------------------------------------------------------------------
 def stock_info():
     today = date.today()
@@ -91,7 +92,7 @@ print("列數:", len(df_sorted))
 
 
 #假設 df_sorted 是你排序後的 DataFrame
-excel_path = "除權息資料排序結果.xlsx"
+excel_path = "reports/除權息資料排序結果.xlsx"
 
 # 寫入 Excel，不含索引欄
 df_sorted.to_excel(excel_path, index=False)
