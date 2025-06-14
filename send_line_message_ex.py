@@ -12,7 +12,7 @@ line_bot_api = MessagingApi(api_client)
 
 # 設定聊天室 ID（使用者 ID 或群組 ID）
 user_ids = [
-    "Cbfedfeb371931301daa1e9d15c3c68f3",  # 你的 userId
+    "Uef360c65c710f997a64c572b40fd8251",  # 你的 userId
     "Ud0a8ffa8ef11b32b6c3ff24d79cc85af"   # 群組或另一個 userId
 ]
 
