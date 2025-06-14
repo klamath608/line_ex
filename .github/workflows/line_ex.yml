@@ -4,7 +4,9 @@ on:
   schedule:
     - cron: '0 23 * * 0'  # 每週一早上 7:00（台灣時間 UTC+8）
   workflow_dispatch:
-
+permissions:
+  contents: write  # 允許 GitHub Actions 有權限 push 檔案
+  
 jobs:
   weekly_notify:
     runs-on: ubuntu-latest
@@ -15,10 +17,21 @@ jobs:
           python-version: '3.11'
 
       - name: Install dependencies
-        run: pip install requests pandas
+        run: pip install requests pandas openpyxl
 
-      - name: Run weekly push script
+      - name: Run script and generate Excel
+        run: python stock_ex.py
+
+      - name: Commit and push Excel
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add reports/*.xlsx
+          git commit -m "Update Excel on $(date '+%Y-%m-%d')"
+          git push
+
+      - name: Send LINE message with file link
         env:
           LINE_CHANNEL_ACCESS_TOKEN: ${{ secrets.LINE_CHANNEL_ACCESS_TOKEN }}
           LINE_USER_ID: ${{ secrets.LINE_USER_ID }}
-        run: python stock_ex.py
+        run: python send_line_message_ex.py
