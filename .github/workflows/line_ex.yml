@@ -18,7 +18,10 @@ jobs:
 
       - name: Install dependencies
         run: pip install requests pandas openpyxl
-
+     
+      - name: Create reports directory
+        run: mkdir -p reports
+      
       - name: Run script and generate Excel
         run: python stock_ex.py
 
