@@ -88,6 +88,10 @@ df_sorted = merged.sort_values("西元日期")
 #table_str = tabulate(df_sorted, headers='keys', tablefmt='pretty', showindex=False)
 #print(table_str)
 
+import os
+
+# 確保 reports 目錄存在
+os.makedirs("reports", exist_ok=True)
 
 #假設 df_sorted 是你排序後的 DataFrame
 excel_path = "dividend_report.xlsx"
