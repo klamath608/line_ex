@@ -94,7 +94,7 @@ import os
 os.makedirs("reports", exist_ok=True)
 
 #假設 df_sorted 是你排序後的 DataFrame
-excel_path = "dividend_report.xlsx"
+excel_path = "reports/dividend_report.xlsx"
 
 # 寫入 Excel，不含索引欄
 df_sorted.to_excel(excel_path, index=False)
