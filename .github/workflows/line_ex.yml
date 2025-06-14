@@ -2,7 +2,7 @@ name: Weekly LINE Push
 
 on:
   schedule:
-    - cron: '0 23 * * 0'  # 每週一早上 7:00（台灣時間 UTC+8）
+    - cron: '0 23 * * 6'  # 每週六早上 7:00（台灣時間 UTC+8）
   workflow_dispatch:
 permissions:
   contents: write  # 允許 GitHub Actions 有權限 push 檔案
