@@ -1,0 +1,24 @@
+name: Weekly LINE Push
+
+on:
+  schedule:
+    - cron: '0 23 * * 0'  # 每週一早上 7:00（台灣時間 UTC+8）
+  workflow_dispatch:
+
+jobs:
+  weekly_notify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests pandas
+
+      - name: Run weekly push script
+        env:
+          LINE_CHANNEL_ACCESS_TOKEN: ${{ secrets.LINE_CHANNEL_ACCESS_TOKEN }}
+          LINE_USER_ID: ${{ secrets.LINE_USER_ID }}
+        run: python stock_ex.py
