@@ -5,8 +5,10 @@ from linebot.v3.messaging.api_client import ApiClient
 from linebot.v3.messaging.configuration import Configuration
 # 讀取 LINE Token 並建立 API 實體
 line_token = os.environ['LINE_CHANNEL_ACCESS_TOKEN']
-configuration = Configuration(access_token=line_token)
-line_bot_api = MessagingApi(configuration)
+configuration = Configuration()
+configuration.access_token = line_token
+api_client = ApiClient(configuration=configuration)
+line_bot_api = MessagingApi(api_client)
 
 # 設定聊天室 ID（使用者 ID 或群組 ID）
 user_ids = [
