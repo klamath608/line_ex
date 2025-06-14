@@ -27,7 +27,11 @@ jobs:
      
       - name: Create reports directory
         run: mkdir -p reports
-      
+
+     - name: Run Python script
+       run: |
+         python your_script.py || echo "Python script failed!"
+ 
       - name: Run script and generate Excel
         run: python stock_ex.py
 
