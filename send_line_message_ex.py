@@ -20,7 +20,7 @@ file_path = "reports/除權息資料排序結果.xlsx"
 file_url = f"https://github.com/{repo_owner}/{repo_name}/raw/main/{file_path}"
 
 # 訊息內容
-message_text = f"📊 本週報表已更新，請點擊下載：\n👉 {file_url}"
+message_text = f"📊 您好~本週除權息預告報表已更新，請點擊下載：\n👉 {file_url}"
 
 # 推送訊息
 for uid in user_ids:
