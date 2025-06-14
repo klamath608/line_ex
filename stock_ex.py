@@ -5,7 +5,7 @@ import pandas as pd
 import io
 from io import StringIO
 import csv
-from tabulate import tabulate
+#from tabulate import tabulate
 from datetime import date
 
 #----------------------------------------------------------------------------------------------------
@@ -86,8 +86,8 @@ print("列數:", len(df_sorted))
 #print(df_sorted.head(50))
 
 # 用 tabulate 格式化輸出
-table_str = tabulate(df_sorted, headers='keys', tablefmt='pretty', showindex=False)
-print(table_str)
+#table_str = tabulate(df_sorted, headers='keys', tablefmt='pretty', showindex=False)
+#print(table_str)
 
 
 #假設 df_sorted 是你排序後的 DataFrame
