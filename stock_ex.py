@@ -7,9 +7,7 @@ from io import StringIO
 import csv
 #from tabulate import tabulate
 from datetime import date
-import os
-# 確保 reports 資料夾存在
-os.makedirs("reports", exist_ok=True)
+
 #----------------------------------------------------------------------------------------------------
 def stock_info():
     today = date.today()
@@ -59,7 +57,7 @@ df1["西元日期"] = df1["除權除息日期"].apply(convert_roc_date)
 #股票代號資料清洗
 df1["股票代號"] = df1["股票代號"].str.strip().str.replace(r"=", "", regex=True)
 df1["股票代號"] = df1["股票代號"].str.strip().str.replace(r'"', '', regex=True)
-#print(df_sorted.head(50))
+#print(df1)
 
 #導入股價/殖利率資料
 df_infor =stock_info()
@@ -72,11 +70,11 @@ df1["股票代號"] = df1["股票代號"].astype(str)
 
 #合併df資料
 #合併時指定左右欄位名稱
-df_all = pd.merge(df_infor, df1, left_on='證券代號', right_on='股票代號', how='inner')
+df_all = pd.merge(df_infor, df1, left_on='證券代號', right_on='股票代號', how='right')
 #print(df_all)
 
 #取需要的欄位
-merged=df_all[["證券代號", "證券名稱", "收盤價", "本益比", "殖利率(%)","除權除息日期","西元日期"]].copy()
+merged=df_all[["股票代號", "名稱", "收盤價", "本益比", "殖利率(%)","除權除息日期","西元日期"]].copy()
 #print(merged)
 
 # 取前50筆
@@ -93,7 +91,7 @@ print("列數:", len(df_sorted))
 
 
 #假設 df_sorted 是你排序後的 DataFrame
-excel_path = "reports/除權息資料排序結果.xlsx"
+excel_path = "除權息資料排序結果.xlsx"
 
 # 寫入 Excel，不含索引欄
 df_sorted.to_excel(excel_path, index=False)
