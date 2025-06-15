@@ -92,25 +92,6 @@ html_path.parent.mkdir(parents=True, exist_ok=True)
 # ⚠️ 注意這段需放在產出 df 的後面
 html = df_sorted.to_html(index=False, classes='styled-table')
 
-# 插入 colgroup（針對你 7 欄資料設計寬度）
-colgroup = """
-<colgroup>
-  <col style="width:28%">
-  <col style="width:40%">
-  <col style="width:24%">
-  <col style="width:24%">
-  <col style="width:28%">
-  <col style="width:32%">
-  <col style="width:28%">
-</colgroup>
-"""
-
-# 插入 colgroup 到表格前面
-html = html.replace(
-    '<table border="1" class="dataframe styled-table">',
-    f'<table border="1" class="dataframe styled-table">\n{colgroup}'
-)
-
 # 寫入 HTML 檔案
 with open("docs/report.html", "w", encoding="utf-8") as f:
     f.write(f"""
@@ -130,7 +111,7 @@ with open("docs/report.html", "w", encoding="utf-8") as f:
         }}
         table {{
             width: 100%;
-            table-layout: fixed;
+            table-layout: auto; /* 根據內容調整欄寬 */
             border-collapse: collapse;
             font-size: 15px;
         }}
@@ -147,6 +128,15 @@ with open("docs/report.html", "w", encoding="utf-8") as f:
         }}
         tr:nth-child(even) {{
             background-color: #f9f9f9;
+        }}
+
+        @media (max-width: 600px) {{
+            table {{
+                font-size: 14px;
+            }}
+            th, td {{
+                padding: 6px 8px;
+            }}
         }}
     </style>
 </head>
