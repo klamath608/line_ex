@@ -14,7 +14,7 @@ def stock_info():
     today = date.today()
     today1=str(today).replace("-","")
     #print(today1)    
-    today1="20250613"
+    #today1="20250613"
     global df
     url=f'https://www.twse.com.tw/exchangeReport/BWIBBU_d?response=csv&date={today1}&selectType=ALL'
     headers={'User-Agent':'Mozilla/5.0'}
