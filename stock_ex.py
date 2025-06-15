@@ -89,20 +89,51 @@ df_sorted = merged.sort_values("西元日期")
 html_path = Path("docs/report.html")
 html_path.parent.mkdir(parents=True, exist_ok=True)
 
-html = df_sorted.to_html(index=False)
-with open(html_path, "w", encoding="utf-8") as f:
+html = df_sorted.to_html(index=False, classes='styled-table')
+
+with open("docs/report.html", "w", encoding="utf-8") as f:
     f.write(f"""
-    <html>
+     <html>
     <head>
         <meta charset="UTF-8">
-        <title>本週除權息報表</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>台股除權息報表</title>
+        <style>
+            body {{
+                font-family: Arial, sans-serif;
+                padding: 16px;
+                background-color: #fefefe;
+            }}
+            .table-wrapper {{
+                overflow-x: auto;
+            }}
+            table {{
+                width: 100%;
+                border-collapse: collapse;
+                font-size: 15px;
+            }}
+            th, td {{
+                text-align: center;
+                padding: 8px 12px;
+                white-space: nowrap;
+                border: 1px solid #ccc;
+            }}
+            th {{
+                background-color: #4CAF50;
+                color: white;
+            }}
+            tr:nth-child(even) {{ background-color: #f9f9f9; }}
+        </style>
     </head>
     <body>
-        <h2>本週除權息預告📈</h2>
-        {html}
+        <h2>📈 除權息預告表</h2>
+        <div class="table-wrapper">
+            {html}
+        </div>
     </body>
     </html>
     """)
+
 #--------------------------------------------
 # 用 tabulate 格式化輸出
 #table_str = tabulate(df_sorted, headers='keys', tablefmt='pretty', showindex=False)
