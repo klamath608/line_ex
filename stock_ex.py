@@ -89,8 +89,11 @@ df_sorted = merged.sort_values("西元日期")
 html_path = Path("docs/report.html")
 html_path.parent.mkdir(parents=True, exist_ok=True)
 
+# 去除最後 9 行
+df_sorted1 = df_sorted.iloc[:-9]
+
 # ⚠️ 注意這段需放在產出 df 的後面
-html = df_sorted.to_html(index=False, classes='styled-table')
+html = df_sorted1.to_html(index=False, classes='styled-table')
 
 # 寫入 HTML 檔案
 with open("docs/report.html", "w", encoding="utf-8") as f:
