@@ -89,11 +89,32 @@ df_sorted = merged.sort_values("西元日期")
 html_path = Path("docs/report.html")
 html_path.parent.mkdir(parents=True, exist_ok=True)
 
+# ⚠️ 注意這段需放在產出 df 的後面
 html = df_sorted.to_html(index=False, classes='styled-table')
 
+# 插入 colgroup（針對你 7 欄資料設計寬度）
+colgroup = """
+<colgroup>
+  <col style="width:14%">
+  <col style="width:18%">
+  <col style="width:12%">
+  <col style="width:12%">
+  <col style="width:12%">
+  <col style="width:16%">
+  <col style="width:16%">
+</colgroup>
+"""
+
+# 插入 colgroup 到表格前面
+html = html.replace(
+    '<table border="1" class="dataframe styled-table">',
+    f'<table border="1" class="dataframe styled-table">\n{colgroup}'
+)
+
+# 寫入 HTML 檔案
 with open("docs/report.html", "w", encoding="utf-8") as f:
     f.write(f"""
-     <html>
+    <html>
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -122,7 +143,9 @@ with open("docs/report.html", "w", encoding="utf-8") as f:
                 background-color: #4CAF50;
                 color: white;
             }}
-            tr:nth-child(even) {{ background-color: #f9f9f9; }}
+            tr:nth-child(even) {{
+                background-color: #f9f9f9;
+            }}
         </style>
     </head>
     <body>
@@ -133,6 +156,7 @@ with open("docs/report.html", "w", encoding="utf-8") as f:
     </body>
     </html>
     """)
+
 
 #--------------------------------------------
 # 用 tabulate 格式化輸出
