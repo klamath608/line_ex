@@ -7,6 +7,7 @@ from io import StringIO
 import csv
 #from tabulate import tabulate
 from datetime import date
+from pathlib import Path
 
 #----------------------------------------------------------------------------------------------------
 def stock_info():
@@ -83,11 +84,32 @@ merged=df_all[["股票代號", "名稱", "收盤價", "本益比", "殖利率(%)
 df_sorted = merged.sort_values("西元日期")
 #print("列數:", len(df_sorted))
 #print(df_sorted.head(50))
+#-------------------------------------------------------------
+# 產生 HTML 並寫入 docs/report.html
+html_path = Path("docs/report.html")
+html_path.parent.mkdir(parents=True, exist_ok=True)
 
+html = df_sorted.to_html(index=False)
+with open(html_path, "w", encoding="utf-8") as f:
+    f.write(f"""
+    <html>
+    <head>
+        <meta charset="UTF-8">
+        <title>本週除權息報表</title>
+    </head>
+    <body>
+        <h2>本週除權息預告📈</h2>
+        {html}
+    </body>
+    </html>
+    """)
+#--------------------------------------------
 # 用 tabulate 格式化輸出
 #table_str = tabulate(df_sorted, headers='keys', tablefmt='pretty', showindex=False)
 #print(table_str)
 
+#--------------------------------------------------------------------------------------
+"""
 import os
 
 # 確保 reports 目錄存在
@@ -100,3 +122,5 @@ excel_path = "reports/dividend_report.xlsx"
 df_sorted.to_excel(excel_path, index=False)
 
 print(f"已成功寫入 Excel 檔案：{excel_path}")
+"""
+#-----------------------------------------------------------
