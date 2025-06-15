@@ -15,7 +15,7 @@
         }
         table {
             width: 100%;
-            table-layout: fixed;
+            table-layout: auto; /* 根據內容調整欄寬 */
             border-collapse: collapse;
             font-size: 15px;
         }
@@ -33,23 +33,21 @@
         tr:nth-child(even) {
             background-color: #f9f9f9;
         }
+
+        @media (max-width: 600px) {
+            table {
+                font-size: 14px;
+            }
+            th, td {
+                padding: 6px 8px;
+            }
+        }
     </style>
 </head>
 <body>
     <h2>📈 除權息預告表</h2>
     <div class="table-wrapper">
         <table border="1" class="dataframe styled-table">
-
-<colgroup>
-  <col style="width:28%">
-  <col style="width:40%">
-  <col style="width:24%">
-  <col style="width:24%">
-  <col style="width:28%">
-  <col style="width:32%">
-  <col style="width:28%">
-</colgroup>
-
   <thead>
     <tr style="text-align: right;">
       <th>股票代號</th>
