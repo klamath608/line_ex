@@ -96,12 +96,12 @@ html = df_sorted.to_html(index=False, classes='styled-table')
 colgroup = """
 <colgroup>
   <col style="width:14%">
-  <col style="width:18%">
+  <col style="width:20%">
   <col style="width:12%">
   <col style="width:12%">
-  <col style="width:12%">
+  <col style="width:14%">
   <col style="width:16%">
-  <col style="width:16%">
+  <col style="width:14%">
 </colgroup>
 """
 
@@ -114,48 +114,50 @@ html = html.replace(
 # 寫入 HTML 檔案
 with open("docs/report.html", "w", encoding="utf-8") as f:
     f.write(f"""
-    <html>
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>台股除權息報表</title>
-        <style>
-            body {{
-                font-family: Arial, sans-serif;
-                padding: 16px;
-                background-color: #fefefe;
-            }}
-            .table-wrapper {{
-                overflow-x: auto;
-            }}
-            table {{
-                width: 100%;
-                border-collapse: collapse;
-                font-size: 15px;
-            }}
-            th, td {{
-                text-align: center;
-                padding: 8px 12px;
-                white-space: nowrap;
-                border: 1px solid #ccc;
-            }}
-            th {{
-                background-color: #4CAF50;
-                color: white;
-            }}
-            tr:nth-child(even) {{
-                background-color: #f9f9f9;
-            }}
-        </style>
-    </head>
-    <body>
-        <h2>📈 除權息預告表</h2>
-        <div class="table-wrapper">
-            {html}
-        </div>
-    </body>
-    </html>
-    """)
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>台股除權息報表</title>
+    <style>
+        body {{
+            font-family: Arial, sans-serif;
+            padding: 16px;
+            background-color: #fefefe;
+        }}
+        .table-wrapper {{
+            overflow-x: auto;
+        }}
+        table {{
+            width: 100%;
+            table-layout: fixed;
+            border-collapse: collapse;
+            font-size: 15px;
+        }}
+        th, td {{
+            text-align: center;
+            padding: 8px 12px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }}
+        th {{
+            background-color: #4CAF50;
+            color: white;
+        }}
+        tr:nth-child(even) {{
+            background-color: #f9f9f9;
+        }}
+    </style>
+</head>
+<body>
+    <h2>📈 除權息預告表</h2>
+    <div class="table-wrapper">
+        {html}
+    </div>
+</body>
+</html>
+""")
 
 
 #--------------------------------------------
