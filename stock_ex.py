@@ -95,13 +95,13 @@ html = df_sorted.to_html(index=False, classes='styled-table')
 # 插入 colgroup（針對你 7 欄資料設計寬度）
 colgroup = """
 <colgroup>
-  <col style="width:14%">
-  <col style="width:20%">
-  <col style="width:12%">
-  <col style="width:12%">
-  <col style="width:14%">
-  <col style="width:16%">
-  <col style="width:14%">
+  <col style="width:28%">
+  <col style="width:40%">
+  <col style="width:24%">
+  <col style="width:24%">
+  <col style="width:28%">
+  <col style="width:32%">
+  <col style="width:28%">
 </colgroup>
 """
 
