@@ -19,11 +19,13 @@ user_ids = [
 # Excel 檔案的 GitHub 下載連結
 repo_owner = "klamath608"
 repo_name = "line_ex"
-file_path = "reports/dividend_report.xlsx"
-file_url = f"https://github.com/{repo_owner}/{repo_name}/raw/main/{file_path}"
+file_url = f"https://klamath608.github.io/line_ex/report.html"
 
 # 訊息內容
-message_text = f"📊 您好~本週台股上市股票<除權息預告報表>已更新，請點擊下載：\n👉 {file_url}"
+message_text = (
+    f"📢 除權息報表已更新！\n"
+    f"📊 點我查看最新資料 👉 {file_url}"
+)
 
 # 推送訊息
 for uid in user_ids:
