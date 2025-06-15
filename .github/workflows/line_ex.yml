@@ -18,13 +18,6 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Remove old Chinese filename
-        run: |
-         if [ -f "reports/除權息資料排序結果.xlsx" ]; then
-         rm "reports/除權息資料排序結果.xlsx"
-         echo "已刪除舊中文檔案"
-         fi
-
       - name: Install dependencies
         run: pip install requests pandas openpyxl line-bot-sdk
 
@@ -34,21 +27,19 @@ jobs:
       - name: Run Python script
         run: python stock_ex.py
 
-      - name: Rename Excel file (avoid Unicode issues)
-        run: |
-          if [ -f "reports/除權息資料排序結果.xlsx" ]; then
-            mv "reports/除權息資料排序結果.xlsx" "reports/dividend_report.xlsx"
-          fi
-
       - name: Check generated files
         run: ls -lh reports/
+      
+      - name: 產生 HTML 檔案
+        run: python report_html.py
+
 
       - name: Commit and push Excel
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git add reports/dividend_report.xlsx
-          git commit -m "Update Excel on $(date '+%Y-%m-%d')" || echo "No changes to commit"
+          git add report.html
+          git commit -m "自動產生最新報表 HTML" || echo "No changes to commit"
           git push
 
       - name: Send LINE message with file link
