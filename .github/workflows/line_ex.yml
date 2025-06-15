@@ -6,11 +6,12 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write  # 允許 GitHub Actions 有權限 push 檔案
-  
+  contents: write  # 允許推送檔案
+
 jobs:
   weekly_notify:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v4
 
@@ -19,30 +20,20 @@ jobs:
           python-version: '3.11'
 
       - name: Install dependencies
-        run: pip install requests pandas openpyxl line-bot-sdk
+        run: pip install pandas requests line-bot-sdk
 
-      - name: Create reports directory
-        run: mkdir -p reports
+      - name: 產生 HTML 報表
+        run: python stock_ex.py  # 這支腳本內部完成資料擷取+產生 docs/report.html
 
-      - name: Run Python script
-        run: python stock_ex.py
-
-      - name: Check generated files
-        run: ls -lh reports/
-      
-      - name: 產生 HTML 檔案
-        run: python report_html.py
-
-
-      - name: Commit and push Excel
+      - name: Commit and push HTML to GitHub Pages
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-          git add report.html
+          git add docs/report.html
           git commit -m "自動產生最新報表 HTML" || echo "No changes to commit"
           git push
 
-      - name: Send LINE message with file link
+      - name: Send LINE message with GitHub Pages link
         env:
           LINE_CHANNEL_ACCESS_TOKEN: ${{ secrets.LINE_CHANNEL_ACCESS_TOKEN }}
           LINE_USER_ID: ${{ secrets.LINE_USER_ID }}
