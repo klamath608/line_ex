@@ -12,7 +12,7 @@ line_bot_api = MessagingApi(api_client)
 
 # 設定聊天室 ID（使用者 ID 或群組 ID）
 user_ids = [
-    "Ucb33740596bf76b371301b0e5dcbe00e"   # 群組或另一個 userId
+    "U825bcb1cc2b63a0fba3ab1a501b4cfc3"   # 群組或另一個 userId
 ]
 
 # Excel 檔案的 GitHub 下載連結
