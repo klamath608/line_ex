@@ -21,6 +21,7 @@ jobs:
 
       - name: Install dependencies
         run: pip install pandas requests line-bot-sdk
+             pip install openpyxl
 
       - name: 產生 HTML 報表
         run: python stock_ex.py  # 這支腳本內部完成資料擷取+產生 docs/report.html
