@@ -159,18 +159,16 @@ with open("docs/report.html", "w", encoding="utf-8") as f:
 #print(table_str)
 
 #--------------------------------------------------------------------------------------
-"""
 import os
 
 # 確保 reports 目錄存在
 os.makedirs("reports", exist_ok=True)
 
 #假設 df_sorted 是你排序後的 DataFrame
-excel_path = "reports/dividend_report.xlsx"
+excel_path = "reports/report.xlsx"
 
 # 寫入 Excel，不含索引欄
 df_sorted.to_excel(excel_path, index=False)
 
 print(f"已成功寫入 Excel 檔案：{excel_path}")
-"""
-#-----------------------------------------------------------
+
