@@ -6,26 +6,53 @@ import io
 from io import StringIO
 import csv
 #from tabulate import tabulate
-from datetime import date
+from datetime import date,datetime,timedelta
 from pathlib import Path
 
 #----------------------------------------------------------------------------------------------------
-def stock_info():
-    today = date.today()
-    today1=str(today).replace("-","")
-    #print(today1)    
-    #today1="20250613"
-    global df
-    url=f'https://www.twse.com.tw/exchangeReport/BWIBBU_d?response=csv&date={today1}&selectType=ALL'
-    headers={'User-Agent':'Mozilla/5.0'}
-    response=requests.get(url, headers=headers)
-    df=pd.read_csv(StringIO(response.text),header=1)
+def get_previous_day(date_str):
+        tdate = datetime.strptime(date_str, "%Y%m%d")
+        previous_day = tdate - timedelta(days=1)
+        return previous_day.strftime("%Y%m%d")
     
-    #display(df)
-    #header=1 代表讀第二列 因為第一列是標題 不是欄位
-    #print(df.columns)看欄位名稱
-    #print(df.head(10))
+def fetch(tdate, output="df"):
+        full_url = f"https://www.twse.com.tw/exchangeReport/BWIBBU_d?response=csv&date={tdate}&selectType=ALL"
+        headers = {'User-Agent': 'Mozilla/5.0'}
+        response = requests.get(full_url, headers=headers)
+
+        if response.status_code != 200:
+            print("⚠️ 無法連線至 TWSE 網站")
+            return None
+
+        raw_text = response.text
+        cleaned_lines = [line for line in raw_text.split("\n") if len(line.split(",")) > 5]
+        cleaned_csv = "\n".join(cleaned_lines)
+
+        try:
+            df = pd.read_csv(StringIO(cleaned_csv))
+            df.dropna(subset=["證券代號"], inplace=True)
+            return df
+        except Exception as e:
+            print("⚠️ CSV 解析失敗：", e)
+            return None
+        
+def stock_info():
+    tdate=datetime.today().strftime("%Y%m%d")   
+    #print(date)     
+    # 最多嘗試回溯 5 天
+    for i in range(6):
+        df = fetch(tdate, output="df")
+        if df is not None and not df.empty:
+            print(f"\n✅ 成功取得資料，資料時間：{tdate}")
+            break
+        else:
+            print(f"⚠️ {tdate} 尚無資料，嘗試前一天...")
+            tdate = get_previous_day(tdate)
+    else:
+        print("\n❌ 無任何可用資料，請稍後再試")
+        df = pd.DataFrame()        
     return df
+
 #-----------------------------------------------------------------------------------------------------
 url1 = "https://www.twse.com.tw/exchangeReport/TWT48U?response=csv"
 headers = {
