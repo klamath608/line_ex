@@ -10,10 +10,8 @@ configuration.access_token = line_token
 api_client = ApiClient(configuration=configuration)
 line_bot_api = MessagingApi(api_client)
 
-# 設定聊天室 ID（使用者 ID 或群組 ID）
-user_ids = [
-    "U825bcb1cc2b63a0fba3ab1a501b4cfc3"   # 群組或另一個 userId
-]
+# 從 GitHub Secret 讀取 LINE 使用者或群組 ID
+user_id = os.environ['LINE_USER_ID']
 
 # Excel 檔案的 GitHub 下載連結
 repo_owner = "klamath608"
@@ -27,9 +25,8 @@ message_text = (
 )
 
 # 推送訊息
-for uid in user_ids:
-    request = PushMessageRequest(
-        to=uid,
-        messages=[TextMessage(text=message_text)]
-    )
-    line_bot_api.push_message(request)
+request = PushMessageRequest(
+    to=user_id,
+    messages=[TextMessage(text=message_text)]
+)
+line_bot_api.push_message(request)
